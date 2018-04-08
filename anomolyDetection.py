@@ -62,8 +62,7 @@ def simulateVotes(var=0.5,alpha=3.15,beta=0,n_points=20):
     x = np.array(np.linspace(0,20,n_points))
     y = np.array(y_noisy(alpha,beta,x,var))
 
-    regressionOnData(x,y)
-    regressionOnData
+    regressionOnData(y)
     '''
     fig, ax = plt.subplots()
     scatter = ax.scatter(x,y,marker='o',label="y=x+0.5+noise")

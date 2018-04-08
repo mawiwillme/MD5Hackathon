@@ -6,3 +6,4 @@ scikit-learn==0.19.1
 sklearn==0.0
 trollius==1.0.4
 scipy==1.0.1
+pyshark=0.3.7.11
