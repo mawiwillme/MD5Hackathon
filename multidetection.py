@@ -5,7 +5,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.base import BaseEstimator
 
 """
-Anomaly detector.
+Anomaly detector when data is clustered into multiple groups.
 """
 class AnomalyDetector(BaseEstimator):
 
