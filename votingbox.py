@@ -103,12 +103,15 @@ if __name__=="__main__":
         return np.concatenate( [x, y], axis=1 )
 
     # Generate some circles, and then overlay some random points
-    x1 = gen_circle_data(200, 1) + np.array([5, 5])
-    x2 = gen_circle_data(200, 1) + np.array([-3, -1])
-    x3 = gen_circle_data(200, 1) + np.array([2,1])
-    noise = np.concatenate( [np.random.uniform(-3,5,size=(50,1)),
-                             np.random.uniform(-1,5,size=(50,1))], axis=1 )
-    data = np.concatenate( [x1, x2, x3, noise] )
+    NX = 1000
+    NR = 200
+    x1 = gen_circle_data(NX, 1) + np.array([5, 5])
+    x2 = gen_circle_data(NX, 1) + np.array([-3, -1])
+    x3 = gen_circle_data(NX, 1) + np.array([2,1])
+    noise = np.concatenate( [np.random.uniform(-3,5,size=(NR,1)),
+                             np.random.uniform(-1,5,size=(NR,1))], axis=1 )
+    data_x = np.concatenate( [x1, x2, x3] )
+    data = np.concatenate( [data_x, noise] )
 
     # First anomaly detector
     box = AnomalyDetector()
@@ -119,11 +122,18 @@ if __name__=="__main__":
     plt.legend()
     
     # Second anomaly detector
-    box = AnomalyDetector()
     outliers, main = box.fit_predict( data, C=0.2, nu=0.2 )
     plt.subplot( 122 )
     plt.scatter( outliers[:,0], outliers[:,1], label="Outliers" )
     plt.scatter( main[:,0], main[:,1], label="Main data" )
-    plt.legend()
-    
+    plt.legend()    
     plt.show()
+
+    # Fit anomaly detector to main data, then do predictions on randomized data
+    box.fit( data_x, C=0.2, nu=0.2, knn=2 )
+    outliers, main = box.predict( data )
+    plt.scatter( outliers[:,0], outliers[:,1], label="Outliers" )
+    plt.scatter( main[:,0], main[:,1], label="Main data" )
+    plt.legend()    
+    plt.show()
+    
