@@ -156,7 +156,7 @@ if __name__=="__main__":
     plt.show()
 
     # Fit anomaly detector to main data, then do predictions on randomized data
-    box = AnomalyDetector( C=0.2, nu=0.2, knn=2 )
+    box = AnomalyDetector( C=0.2, nu=0.2, knn=3, knn_iters=3 )
     box.fit( data_x )
     outliers, main = box.predict( data )
     plt.scatter( outliers[:,0], outliers[:,1], label="Outliers" )

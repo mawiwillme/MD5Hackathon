@@ -5,3 +5,6 @@
 
 # Line profiling
 *.lprof
+
+# Testing scripts
+test
